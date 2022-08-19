@@ -1,8 +1,8 @@
 public enum EMITTYPE
 {
-    POINT,
-    BOX,
-    SPHERE,
-    CIRCLE,
-    LINE
+	POINT,
+	BOX,
+	SPHERE,
+	CIRCLE,
+	LINE
 }

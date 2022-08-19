@@ -44,9 +44,6 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\..\..\Downloads\Guardian_Data\Managed\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
-    <Reference Include="mscorlib">
-      <HintPath>..\..\..\..\Downloads\Guardian_Data\Managed\mscorlib.dll</HintPath>
-    </Reference>
     <Reference Include="Photon3Unity3D">
       <HintPath>..\..\..\..\Downloads\Guardian_Data\Managed\Photon3Unity3D.dll</HintPath>
     </Reference>

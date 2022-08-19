@@ -6,7 +6,9 @@ namespace Xft
 	public class Spline
 	{
 		private List<SplineControlPoint> mControlPoints = new List<SplineControlPoint>();
+
 		private List<SplineControlPoint> mSegments = new List<SplineControlPoint>();
+
 		public int Granularity = 20;
 
 		public SplineControlPoint this[int index]
@@ -22,6 +24,7 @@ namespace Xft
 		}
 
 		public List<SplineControlPoint> Segments => mSegments;
+
 		public List<SplineControlPoint> ControlPoints => mControlPoints;
 
 		public SplineControlPoint NextControlPoint(SplineControlPoint controlpoint)
@@ -101,45 +104,42 @@ namespace Xft
 
 		public static Vector3 CatmulRom(Vector3 T0, Vector3 P0, Vector3 P1, Vector3 T1, float f)
 		{
-			double num = -0.5;
-			double num2 = 1.5;
-			double num3 = -1.5;
-			double num4 = 0.5;
-			double num5 = -2.5;
-			double num6 = 2.0;
+			double num = 1.5;
+			double num2 = -1.5;
+			double num3 = 0.5;
+			double num4 = -2.5;
+			double num5 = 2.0;
+			double num6 = -0.5;
 			double num7 = -0.5;
-			double num8 = -0.5;
-			double num9 = 0.5;
-			double num10 = num * (double)T0.x + num2 * (double)P0.x + num3 * (double)P1.x + num4 * (double)T1.x;
-			double num11 = (double)T0.x + num5 * (double)P0.x + num6 * (double)P1.x + num7 * (double)T1.x;
-			double num12 = num8 * (double)T0.x + num9 * (double)P1.x;
-			double num13 = P0.x;
-			double num14 = num * (double)T0.y + num2 * (double)P0.y + num3 * (double)P1.y + num4 * (double)T1.y;
-			double num15 = (double)T0.y + num5 * (double)P0.y + num6 * (double)P1.y + num7 * (double)T1.y;
-			double num16 = num8 * (double)T0.y + num9 * (double)P1.y;
-			double num17 = P0.y;
-			double num18 = num * (double)T0.z + num2 * (double)P0.z + num3 * (double)P1.z + num4 * (double)T1.z;
-			double num19 = (double)T0.z + num5 * (double)P0.z + num6 * (double)P1.z + num7 * (double)T1.z;
-			double num20 = num8 * (double)T0.z + num9 * (double)P1.z;
-			double num21 = P0.z;
-			float x = (float)(((num10 * (double)f + num11) * (double)f + num12) * (double)f + num13);
-			float y = (float)(((num14 * (double)f + num15) * (double)f + num16) * (double)f + num17);
-			float z = (float)(((num18 * (double)f + num19) * (double)f + num20) * (double)f + num21);
+			double num8 = 0.5;
+			double num9 = -0.5 * (double)T0.x + num * (double)P0.x + num2 * (double)P1.x + num3 * (double)T1.x;
+			double num10 = (double)T0.x + num4 * (double)P0.x + num5 * (double)P1.x + num6 * (double)T1.x;
+			double num11 = num7 * (double)T0.x + num8 * (double)P1.x;
+			double num12 = P0.x;
+			double num13 = -0.5 * (double)T0.y + num * (double)P0.y + num2 * (double)P1.y + num3 * (double)T1.y;
+			double num14 = (double)T0.y + num4 * (double)P0.y + num5 * (double)P1.y + num6 * (double)T1.y;
+			double num15 = num7 * (double)T0.y + num8 * (double)P1.y;
+			double num16 = P0.y;
+			double num17 = -0.5 * (double)T0.z + num * (double)P0.z + num2 * (double)P1.z + num3 * (double)T1.z;
+			double num18 = (double)T0.z + num4 * (double)P0.z + num5 * (double)P1.z + num6 * (double)T1.z;
+			double num19 = num7 * (double)T0.z + num8 * (double)P1.z;
+			double num20 = P0.z;
+			float x = (float)(((num9 * (double)f + num10) * (double)f + num11) * (double)f + num12);
+			float y = (float)(((num13 * (double)f + num14) * (double)f + num15) * (double)f + num16);
+			float z = (float)(((num17 * (double)f + num18) * (double)f + num19) * (double)f + num20);
 			return new Vector3(x, y, z);
 		}
 
 		public Vector3 InterpolateByLen(float tl)
 		{
 			float localF;
-			SplineControlPoint splineControlPoint = LenToSegment(tl, out localF);
-			return splineControlPoint.Interpolate(localF);
+			return LenToSegment(tl, out localF).Interpolate(localF);
 		}
 
 		public Vector3 InterpolateNormalByLen(float tl)
 		{
 			float localF;
-			SplineControlPoint splineControlPoint = LenToSegment(tl, out localF);
-			return splineControlPoint.InterpolateNormal(localF);
+			return LenToSegment(tl, out localF).InterpolateNormal(localF);
 		}
 
 		public SplineControlPoint AddControlPoint(Vector3 pos, Vector3 up)
